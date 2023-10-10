@@ -67,19 +67,76 @@ class OnboardingScreen extends StatelessWidget {
               bottom: 40.0, // Adjust the bottom position
               left: 0,
               right: 0,
-              child: FractionallySizedBox(
-                widthFactor: 0.118, // Adjust the width factor as needed
-                alignment: Alignment.center,
-                child: SmoothPageIndicator(
-                  controller: viewModel.pageController,
-                  count: onboardingData.length,
-                  effect: WormEffect(
-                    dotColor: Colors.grey,
-                    activeDotColor: Color(0xff0448D8),
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    spacing: 12,
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(70, 70),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(36),
+                        ),
+                        elevation: 0,
+                        backgroundColor: Color(0xff778595),
+                        shadowColor: Colors.transparent,
+                      ),
+                      onPressed: () {
+                        // Navigate to the previous page with animation
+                        if (viewModel.currentIndex > 0) {
+                          viewModel.pageController.animateToPage(
+                            viewModel.currentIndex - 1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                    SmoothPageIndicator(
+                      controller: viewModel.pageController,
+                      count: onboardingData.length,
+                      effect: WormEffect(
+                        dotColor: Colors.grey,
+                        activeDotColor: Color(0xff0448D8),
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        spacing: 12,
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(70, 70),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(36),
+                        ),
+                        elevation: 0,
+                        backgroundColor: Color(0xffFF5858),
+                        shadowColor: Colors.transparent,
+                      ),
+                      onPressed: () {
+                        // Navigate to the next page with animation
+                        if (viewModel.currentIndex <
+                            onboardingData.length - 1) {
+                          viewModel.pageController.animateToPage(
+                            viewModel.currentIndex + 1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
